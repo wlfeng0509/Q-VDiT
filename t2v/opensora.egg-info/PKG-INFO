@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: opensora
+Version: 1.0.0
+Summary: Democratizing Efficient Video Production for All
+License: Apache Software License 2.0
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Environment :: GPU :: NVIDIA CUDA
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: System :: Distributed Computing
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE

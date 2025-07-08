@@ -1,0 +1,66 @@
+part_fp_list: "./t2v/configs/quant/opensora/remain_fp.txt"
+model:
+    model_id: "opensora"
+    model_type: 'opensora'  # ['sd','sdxl']
+conditional: True
+cfg_split: True
+calib_data:
+    path: "your path of calib data"
+    n_steps: 100    # calib_data_sample_steps = total setps // n_steps
+    batch_size: 4  # used for quant param initialization
+    n_samples: 10
+quant:
+    weight:
+        optimization:
+            # assume that weight/act quantize param opt together
+            joint_weight_act_opt: False
+            use_grad: False
+            iters: 15000
+            loss:
+                lambda_coeff: 0.5
+                warmup: 0.0
+                reconstruction_loss_type: 'relation'
+            params: 
+                delta:
+                    lr: 1.e-6
+                # zero_point:
+                    # lr: 1.e-5
+        quantizer:
+            n_bits: 3
+            per_group: 'channel'
+            scale_method: 'grid_search_lp'
+            channel_wise: True
+            # round_mode: 'learned_hard_sigmoid'
+            round_mode: 'nearest_ste'
+            sym: False
+    activation:
+        optimization:
+            joint_weight_act_opt: False
+            use_grad: False
+            iters: 100
+            loss:
+                lambda_coeff: 0.5
+                warmup: 0.0
+            params:
+                # delta:
+                    # lr: 1.e-5
+        quantizer:
+            n_bits: 8
+            per_group: 'token'
+            #per_group: False
+            dynamic: True
+            scale_method: 'min_max'
+            round_mode: 'nearest_ste'
+            running_stat: False # when dynamic, running_stat=False
+            sym: False
+            n_spatial_token: 1024  # for 16x512x512
+            n_temporal_token: 16
+            n_prompt: 120
+            smooth_quant:
+                enable: True
+                channel_wise_scale_type: momentum_act_max
+                momentum: 0.95
+                alpha: 0.11
+    grad_checkpoint: False
+resume_with_w_quantized:
+    path: None
