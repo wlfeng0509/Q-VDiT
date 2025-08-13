@@ -22,4 +22,4 @@ state_dict = torch.load('./logs/split_ckpt/OpenSora-v1-HQ-16x512x512.pth')  # yo
 new_state_dict = split_qkv(state_dict)
 
 
-torch.save(new_state_dict, './logs/split_ckpt/OpenSora-v1-HQ-16x512x512-split-test.pth')  # split the qkv layer in the ckpt
+torch.save(new_state_dict, './logs/split_ckpt/OpenSora-v1-HQ-16x512x512-split.pth')  # split the qkv layer in the ckpt

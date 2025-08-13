@@ -61,7 +61,7 @@ For example, run `bash t2v/shell_scripts/get_calib_data.sh $GPU_ID` to generate 
 
 > the original opensora code merges the qkv linears into a linear layer with more channels, we split it into 3 layers for quantization. 
 
-- Put the downloaded OpenSora-v1-HQ-16x512x512.pth in `./logs/split_ckpt`, and run `t2v/scripts/split_ckpt.py`, the converted checkpoint will appear in `./logs/split_ckpt/OpenSora-v1-HQ-16x512x512-split-test.pth'`. 
+- Put the downloaded OpenSora-v1-HQ-16x512x512.pth in `./logs/split_ckpt`, and run `t2v/scripts/split_ckpt.py`, the converted checkpoint will appear in `./logs/split_ckpt/OpenSora-v1-HQ-16x512x512-split.pth'`. 
 
 ```shell
 python t2v/scripts/split_ckpt.py
@@ -71,7 +71,7 @@ python t2v/scripts/split_ckpt.py
 
 - `bash ./t2v/shell_scripts/fp16_inference.sh $GPU_ID`: conducting FP16 inference to generate videos using the 10 opensora example prompt, the video will be saved at `./logs/fp16_inference`. 
 
-> we provide the precomputed `text_embeds.pth` for 10 opensora example prompts in `t2v/util_files`, which help to avoid loading the t5 ckpts onto GPU (which takes around 1 min, and around 10 GBs of memory) . Please add `--precompute_text_embeds ./t2v/utils_files/text_embeds.pth` when running command.
+> we use the provide the precomputed `text_embeds.pth` in [this link](https://github.com/thu-nics/ViDiT-Q/blob/viditq_old/t2v/utils_files/text_embeds.pth) for 10 opensora example prompts in `t2v/util_files`, which help to avoid loading the t5 ckpts onto GPU (which takes around 1 min, and around 10 GBs of memory) . Please add `--precompute_text_embeds ./t2v/utils_files/text_embeds.pth` when running command.
 
 ```shell
 CFG="./t2v/configs/opensora/inference/16x512x512.py"  # the opensora config
